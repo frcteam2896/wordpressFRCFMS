@@ -17,7 +17,6 @@ class TBA_Widget extends WP_Widget {
 		    'TBA_Widget', //Name
 		    $widget_ops,
 		    $control_ops,
-		    ) //Arguments
 		    );
 
 	}
