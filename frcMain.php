@@ -2,7 +2,7 @@
 /*
 Plugin Name: FRC Blue Alliance
 Plugin URI: https://github.com/MechaMonarchs/wordpressBlueAlliance
-Version: 0.0.2
+Version: 0.0.3
 Author: Damien MechaMonarchs (FRC Team 2896)
 Description: Integrates feeds from The Blue Alliance, a statistics site for FIRST Robotics
 */
@@ -10,12 +10,16 @@ class TBA_Widget extends WP_Widget {
 
 	public function __construct() {
 		// widget actual processes
+		$widget_ops = array( 'classname' => 'TBA_Widget', 'description' => 'The Blue Alliance integration' );
+		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'TBA_wp' );
 		parent::__construct(
 		    'tba_widget', //Base ID
 		    'TBA_Widget', //Name
-		    array( 'description' => __( 'The Blue Alliance integration', 'text_domain' ), ) //Arguments
+		    $widget_ops,
+		    $control_ops,
+		    ) //Arguments
 		    );
-		    $widget_ops = array( 'classname' => 'TBA_Widget', 'description' => 'The Blue Alliance integration' );
+
 	}
     /**
 	 * Front-end display of widget.
