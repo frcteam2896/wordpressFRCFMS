@@ -15,6 +15,7 @@ class TBA_Widget extends WP_Widget {
 		    'TBA_Widget', //Name
 		    array( 'description' => __( 'The Blue Alliance integration', 'text_domain' ), ) //Arguments
 		    );
+		    $widget_ops = array( 'classname' => 'TBA_Widget', 'description' => 'The Blue Alliance integration' );
 	}
     /**
 	 * Front-end display of widget.
