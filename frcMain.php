@@ -78,4 +78,4 @@ class TBA_Widget extends WP_Widget {
 
 
 }
-add_action( 'widgets_init', create_function( '', 'register_widget( "foo_widget" );' ) );
+add_action( 'widgets_init', create_function( '', 'register_widget( "TBA_Widget" );' ) );
