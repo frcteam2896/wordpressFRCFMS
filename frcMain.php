@@ -67,8 +67,8 @@ class TBA_Widget extends WP_Widget {
 		/* Set up some default widget settings. */
 		$defaults = array( 'title' => 'Current Matches', 'team' => '2896');
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-		?>
-<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+
+<label for="<?php echo $this->get_field_id( 'title' );?>"><?php _e( 'Title:' ); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 <label for="<?php echo $this->get_field_id( 'team' ); ?>"><?php _e( 'Title:' ); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id( 'team' ); ?>" name="<?php echo $this->get_field_name( 'team' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
