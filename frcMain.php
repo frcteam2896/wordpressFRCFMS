@@ -32,7 +32,7 @@ class TBA_Widget extends WP_Widget {
 		echo $before_widget;
 		if (!empty($title))
 		echo $before_title.$title.$after_title;
-		echo __('Hello, World!', 'text_domain');
+		echo __('Hello, World! <br/> Team #'.$team, 'text_domain');
 		echo $after_widget;
 	}
     /**
@@ -51,7 +51,7 @@ class TBA_Widget extends WP_Widget {
         $instance = $old_instance;
         $instance = array();
         $instance['title'] = strip_tags($new_instance['title']);
-        $instance['team'] = strip_tags($instance['team']);
+        $instance['team'] = strip_tags($new_instance['team']);
 
         return $instance;
     }
@@ -69,9 +69,9 @@ class TBA_Widget extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
 <label for="<?php echo $this->get_field_id( 'title' );?>"><?php _e( 'Title:' ); ?></label>
-<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-<label for="<?php echo $this->get_field_id( 'team' ); ?>"><?php _e( 'Title:' ); ?></label>
-<input class="widefat" id="<?php echo $this->get_field_id( 'team' ); ?>" name="<?php echo $this->get_field_name( 'team' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+<label for="<?php echo $this->get_field_id('team'); ?>"><?php _e( 'Team #:' ); ?></label>
+<input class="widefat" id="<?php echo $this->get_field_id( 'team' ); ?>" name="<?php echo $this->get_field_name('team'); ?>" type="text" value="<?php echo esc_attr($team); ?>" />
 </p>
     <?
 	}
