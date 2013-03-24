@@ -48,8 +48,10 @@ class TBA_Widget extends WP_Widget {
 
     public function update( $new_instance, $old_instance ) {
     // processes widget options to be saved
+        $instance = $old_instance;
         $instance = array();
         $instance['title'] = strip_tags($new_instance['title']);
+        $instance['team'] = strip_tags($instance['team']);
 
         return $instance;
     }
@@ -62,16 +64,14 @@ class TBA_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
  	public function form( $instance ) {
-		// outputs the options form on admin
-		if( isset($instance['title'])){
-		    $title = $instance['title'];
-		}
-		else{
-		    $title = __('New Title', 'text_domain');
-		}
+		/* Set up some default widget settings. */
+		$defaults = array( 'title' => 'Current Matches', 'team' => '2896');
+		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 		?>
 <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+<label for="<?php echo $this->get_field_id( 'team' ); ?>"><?php _e( 'Title:' ); ?></label>
+<input class="widefat" id="<?php echo $this->get_field_id( 'team' ); ?>" name="<?php echo $this->get_field_name( 'team' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 </p>
     <?
 	}
