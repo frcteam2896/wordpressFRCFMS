@@ -6,12 +6,12 @@ Version: 0.0.3
 Author: Damien MechaMonarchs (FRC Team 2896)
 Description: Integrates feeds from The Blue Alliance, a statistics site for FIRST Robotics
 */
-class RandomPostWidget extends WP_Widget
+class TBA_Widget extends WP_Widget
 {
-  function RandomPostWidget()
+  function TBA_Widget()
   {
-    $widget_ops = array('classname' => 'RandomPostWidget', 'description' => 'Displays a random post with thumbnail' );
-    $this->WP_Widget('RandomPostWidget', 'Random Post and Thumbnail', $widget_ops);
+    $widget_ops = array('classname' => 'TBA_Widget', 'description' => 'Displays a random post with thumbnail' );
+    $this->WP_Widget('TBA_Widget', 'The Blue Alliance integration', $widget_ops);
   }
 
   function form($instance)
@@ -47,4 +47,4 @@ class RandomPostWidget extends WP_Widget
   }
 
 }
-add_action( 'widgets_init', create_function('', 'return register_widget("RandomPostWidget");') );?>
+add_action( 'widgets_init', create_function('', 'return register_widget("TBA_Widget");') );?>
