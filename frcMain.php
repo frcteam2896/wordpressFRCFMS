@@ -49,7 +49,7 @@ class TBA_Widget extends WP_Widget {
     public function update( $new_instance, $old_instance ) {
     // processes widget options to be saved
         $instance = $old_instance;
-        $instance = array();
+
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['team'] = strip_tags($new_instance['team']);
 
