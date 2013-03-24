@@ -35,7 +35,7 @@ class TBA_Widget extends WP_Widget
         extract($args, EXTR_SKIP);
 
         echo $before_widget;
-        $title = empty($instance['titile']) ? '' : apply_filters('widget_title', @instance['title']);
+        $title = empty($instance['title']) ? '' : apply_filters('widget_title', @instance['title']);
         if (!empty($title))
             echo $before_title.$title.$after_title;;
 
