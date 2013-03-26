@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: FRC Blue Alliance
+Plugin Name: FRCFMS widget
 Plugin URI: https://github.com/MechaMonarchs/wordpressFRCFMS
-Version: 0.0.3
+Version: 0.1.0
 Author: Damien MechaMonarchs (FRC Team 2896)
 Description: Integrates data from FRCFMS, a score reporting site for FIRST Robotics
 */
@@ -12,13 +12,14 @@ class FMS_Widget extends WP_Widget
         $data = file_get_contents('https://search.twitter.com/search.json?q=%23'.$event.'%20from:frcfms');
         $data = json_decode($data);
         $n = count($data -> results);
-        for($i = 0; $i <= $n; $i++){
+        for($i = 0; $i < $n; $i++){
             $frcfms = $data -> results[$i] -> text;
             $frcfms = preg_split("(#FRC\w* |TY | MC | RF | BF | RA | BA | RC | BC | RFP | BFP | RAS | BAS | RTS | BTS )", $frcfms);
             if (in_array($team, $frcfms))
                 $i = $n + 1;
         }
         return array(
+            'type' => $frcfms[2],
             'match' => $frcfms[3],
             'red' => $frcfms[4],
             'blue' => $frcfms[5],
@@ -68,15 +69,18 @@ class FMS_Widget extends WP_Widget
 
     // WIDGET CODE GOES HERE
     $match = $this->TBA_Parser($instance['team'], $instance['event']);
-    echo($match["match"]);
-    echo($match["red"]);
-    echo($match["blue"]);
-    echo($match["rAlliance"][0]);
-    echo($match["rAlliance"][1]);
-    echo($match["rAlliance"][2]);
-    echo($match["bAlliance"][0]);
-    echo($match["bAlliance"][1]);
-    echo($match["bAlliance"][2]);
+    $patt = '/\b'.$team.'\b/';
+    $match["rAlliance"] = preg_replace($patt,'<b>$0</b>', $match["rAlliance"]);
+    $match["bAlliance"] = preg_replace($patt,'<b>$0</b>', $match["bAlliance"]);
+    echo($match["match"].$match["type"].'<br/>');
+    echo('<br/>Red:<br/>'.$match["rAlliance"][0].'<br/>');
+    echo($match["rAlliance"][1].'<br/>');
+    echo($match["rAlliance"][2].'<br/>');
+    echo('Score:'.$match["red"].'<br/>');
+    echo('<br/>Blue:</br>'.$match["bAlliance"][0].'<br/>');
+    echo($match["bAlliance"][1].'<br/>');
+    echo($match["bAlliance"][2].'<br/>');
+    echo('Score:'.$match["Blue"].'<br/>');
     echo $after_widget;
   }
 
