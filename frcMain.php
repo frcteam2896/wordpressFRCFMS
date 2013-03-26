@@ -29,7 +29,7 @@ class FMS_Widget extends WP_Widget
    }
   function FMS_Widget()
   {
-    $widget_ops = array('classname' => 'FMS_Widget', 'description' => 'Integrates match feeds from The Blue Alliance' );
+    $widget_ops = array('classname' => 'FMS_Widget', 'description' => 'Integrates match feeds from the @FRCFMS feed' );
     $this->WP_Widget('FMS_Widget', 'FMS Feed', $widget_ops);
   }
 
@@ -39,7 +39,8 @@ class FMS_Widget extends WP_Widget
     $title = $instance['title'];
 ?>
   <p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
-  <p><label for="<?php echo $this->get_field_id('team'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('team'); ?>" name="<?php echo $this->get_field_name('team'); ?>" type="text" value="<?php echo attribute_escape($team); ?>" /></label></p>
+  <p><label for="<?php echo $this->get_field_id('team'); ?>">Team: <input class="widefat" id="<?php echo $this->get_field_id('team'); ?>" name="<?php echo $this->get_field_name('team'); ?>" type="text" value="<?php echo attribute_escape($team); ?>" /></label></p>
+  <p><label for="<?php echo $this->get_field_id('event'); ?>">Event: <input class="widefat" id="<?php echo $this->get_field_id('event'); ?>" name="<?php echo $this->get_field_name('event'); ?>" type="text" value="<?php echo attribute_escape($event); ?>" /></label></p>
 <?php
   }
 
@@ -48,6 +49,7 @@ class FMS_Widget extends WP_Widget
     $instance = $old_instance;
     $instance['title'] = $new_instance['title'];
     $instance['team'] = $new_instance['team'];
+    $instance['event'] = $new_instance['event'];
     return $instance;
   }
 
@@ -62,8 +64,12 @@ class FMS_Widget extends WP_Widget
       echo $before_title . $title . $after_title;;
 
     // WIDGET CODE GOES HERE
-    echo "<h1>This is my new widget!</h1>";
-
+    $match = $this->TBA_Parser($instance['team'], $instance['event']);
+    echo $match['match'];
+    echo $match['red'];
+    echo $match['blue'];
+    echo $match['rAlliance'];
+    echo $match['bAlliance'];
     echo $after_widget;
   }
 
