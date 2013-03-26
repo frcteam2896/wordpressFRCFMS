@@ -8,23 +8,22 @@ Description: Integrates data from FRCFMS, a score reporting site for FIRST Robot
 */
 class FMS_Widget extends WP_Widget
 {
-  function TBA_Parser($team, $event)
-   {
+  function TBA_Parser($team, $event){
         $data = file_get_contents('https://search.twitter.com/search.json?q=%23'.$event.'%20from:frcfms');
         $data = json_decode($data);
-        $results = count($data -> results);
-        for($i = 0; $i <= $results; $i++){
+        $n = count($data -> results);
+        for($i = 0; $i <= $n; $i++){
             $frcfms = $data -> results[$i] -> text;
             $frcfms = preg_split("(#FRC\w* |TY | MC | RF | BF | RA | BA | RC | BC | RFP | BFP | RAS | BAS | RTS | BTS )", $frcfms);
-            if (in_array($team))
-                $i = $results + 1;
+            if (in_array($team, $frcfms))
+                $i = $n + 1;
         }
         return array(
-            "match" => $frcfms[3],
-            "red" => $frcfms[4],
-            "blue" => $frcfms[5],
-            "rAlliance" => explode(" ",$frcfms[6]),
-            "bAlliance" => explode(" ",$frcfms[7]),
+            'match' => $frcfms[3],
+            'red' => $frcfms[4],
+            'blue' => $frcfms[5],
+            'rAlliance' => explode(" ",$frcfms[6]),
+            'bAlliance' => explode(" ",$frcfms[7]),
             );
    }
   function FMS_Widget()
@@ -35,8 +34,10 @@ class FMS_Widget extends WP_Widget
 
   function form($instance)
   {
-    $instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+    $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'team' => '', 'event' => '' ) );
     $title = $instance['title'];
+    $team = $instance['team'];
+    $event = $instance['event'];
 ?>
   <p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
   <p><label for="<?php echo $this->get_field_id('team'); ?>">Team: <input class="widefat" id="<?php echo $this->get_field_id('team'); ?>" name="<?php echo $this->get_field_name('team'); ?>" type="text" value="<?php echo attribute_escape($team); ?>" /></label></p>
@@ -67,11 +68,15 @@ class FMS_Widget extends WP_Widget
 
     // WIDGET CODE GOES HERE
     $match = $this->TBA_Parser($instance['team'], $instance['event']);
-    echo $match['match'];
-    echo $match['red'];
-    echo $match['blue'];
-    echo $match['rAlliance'];
-    echo $match['bAlliance'];
+    echo($match["match"]);
+    echo($match["red"]);
+    echo($match["blue"]);
+    echo($match["rAlliance"][0]);
+    echo($match["rAlliance"][1]);
+    echo($match["rAlliance"][2]);
+    echo($match["bAlliance"][0]);
+    echo($match["bAlliance"][1]);
+    echo($match["bAlliance"][2]);
     echo $after_widget;
   }
 
