@@ -13,7 +13,7 @@ class FMS_Widget extends WP_Widget
         $data = file_get_contents('https://search.twitter.com/search.json?q=%23'.$event.'%20from:frcfms');
         $data = json_decode($data);
         $results = count($data -> results);
-        for($i = 0, $i <= $results, $i++) {
+        for($i = 0; $i <= $results; $i++){
             $frcfms = $data -> results[$i] -> text;
             $frcfms = preg_split("(#FRC\w* |TY | MC | RF | BF | RA | BA | RC | BC | RFP | BFP | RAS | BAS | RTS | BTS )", $frcfms);
             if (in_array($team))
@@ -25,7 +25,7 @@ class FMS_Widget extends WP_Widget
             "blue" => $frcfms[5],
             "rAlliance" => explode(" ",$frcfms[6]),
             "bAlliance" => explode(" ",$frcfms[7]),
-            )
+            );
    }
   function FMS_Widget()
   {
@@ -59,6 +59,8 @@ class FMS_Widget extends WP_Widget
 
     echo $before_widget;
     $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+    $team = empty($instance['team']) ? ' ' : apply_filters('widget_title', $instance['team']);
+    $event = empty($instance['event']) ? ' ' : apply_filters('widget_title', $instance['event']);
 
     if (!empty($title))
       echo $before_title . $title . $after_title;;
