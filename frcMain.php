@@ -14,17 +14,22 @@ class FMS_Widget extends WP_Widget
         $n = count($data -> results);
         for($i = 0; $i < $n; $i++){
             $frcfms = $data -> results[$i] -> text;
-            $frcfms = preg_split("(#FRC\w* |TY | MC | RF | BF | RA | BA | RC | BC | RFP | BFP | RAS | BAS | RTS | BTS )", $frcfms);
-            if (in_array($team, $frcfms))
+            if (preg_match('/'.$frcfms.'/',$team))
                 $i = $n + 1;
         }
+        $frcfms = preg_split("(#FRC\w* |TY | MC | RF | BF | RA | BA | RC | BC | RFP | BFP | RAS | BAS | RTS | BTS )", $frcfms);
+        $frcfms[6] = explode(" ",$frcfms[6]);
+        $frcfms[7] = explode(" ",$frcfms[7]);
+        $patt = '/\b'.$team.'\b/';
+        $frcfms[6] = preg_replace($patt,'<b>$0</b>',$frcfms[6]);
+        $frcfms[7] = preg_replace($patt,'<b>$0</b>',$frcfms[7]);
         return array(
             'type' => $frcfms[2],
             'match' => $frcfms[3],
             'red' => $frcfms[4],
             'blue' => $frcfms[5],
-            'rAlliance' => explode(" ",$frcfms[6]),
-            'bAlliance' => explode(" ",$frcfms[7]),
+            'rAlliance' => $frcfms[6],
+            'bAlliance' => $frcfms[7],
             );
    }
   function FMS_Widget()
@@ -69,18 +74,15 @@ class FMS_Widget extends WP_Widget
 
     // WIDGET CODE GOES HERE
     $match = $this->TBA_Parser($instance['team'], $instance['event']);
-    $patt = '/\b'.$team.'\b/';
-    $match["rAlliance"] = preg_replace($patt,'<b>$0</b>', $match["rAlliance"]);
-    $match["bAlliance"] = preg_replace($patt,'<b>$0</b>', $match["bAlliance"]);
     echo($match["match"].$match["type"].'<br/>');
-    echo('<br/>Red:<br/>'.$match["rAlliance"][0].'<br/>');
+    echo('<div class="fmsred"><br/>Red:<br/>'.$match["rAlliance"][0].'<br/>');
     echo($match["rAlliance"][1].'<br/>');
     echo($match["rAlliance"][2].'<br/>');
-    echo('Score:'.$match["red"].'<br/>');
-    echo('<br/>Blue:</br>'.$match["bAlliance"][0].'<br/>');
+    echo('<div class="sred">Score:'.$match["red"].'<br/></div><div>');
+    echo('<div class="fmsblue"><br/>Blue:</br>'.$match["bAlliance"][0].'<br/>');
     echo($match["bAlliance"][1].'<br/>');
     echo($match["bAlliance"][2].'<br/>');
-    echo('Score:'.$match["Blue"].'<br/>');
+    echo('<div class="sblue">Score:'.$match["Blue"].'<br/></div></div>');
     echo $after_widget;
   }
 
