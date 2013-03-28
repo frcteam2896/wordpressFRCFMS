@@ -1,3 +1,3 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
-.fms{width:100%;display:inline;}.fms .red{width:50%;float:left;}.fms .red li{background-color:#fa1137;}.fms .red li:nth-child(odd){background-color:#fc758b;}
-.fms .blue{width:50%;float:right;}.fms .blue li{background-color:#6879ed;}.fms .blue li:nth-child(odd){background-color:#c3caf8;}
+.fms{width:100%;display:inline;}.fms li{float:left;padding:0 0 0 0;margin:0 0 0 0;width:50%;}.fms li .red{width:100%;}.fms li .red li{background-color:#fa1137;}.fms li .red li:nth-child(odd){background-color:#fc758b;}
+.fms li .blue{width:100%;}.fms li .blue li{background-color:#6879ed;}.fms li .blue li:nth-child(odd){background-color:#c3caf8;}
