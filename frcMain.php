@@ -81,8 +81,8 @@ class FMS_Widget extends WP_Widget
     if($match==NULL)
         echo("Could not find match data.  Has the event started yet?");
     else{ ?>
+        <h4>Match:<? echo($match["match"].$match["type"]);?></h4>
         <ul class="fms">
-            <li>Match:<? echo($match["match"].$match["type"]);?>
                 <li>Red:
                     <ul class="red">
                         <li><? echo($match["rAlliance"][0]);?></li>
