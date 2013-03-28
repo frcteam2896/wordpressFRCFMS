@@ -4,7 +4,7 @@ Plugin Name: FRCFMS widget
 Plugin URI: https://github.com/MechaMonarchs/wordpressFRCFMS
 Version: 0.1.1(b)
 Author: Damien MechaMonarchs (FRC Team 2896)
-Description: Integrates data from FRCFMS, a score reporting site for FIRST Robotics.  Includes shortcode in format [FMS team=#### event=FRC(event code) data=(type, match, red, blue, rAlliance, bAlliance')] where "type" is the match type (practice, qualifier, or elimination), "match" is the match number, "red" is the red alliance's score, "blue" is the blue alliance's score, "rAlliance" is the teams in the Red Alliance, and "bAlliance" is the teams in the Blue Alliance.
+Description: Integrates data from FRCFMS, a score reporting site for FIRST Robotics.
 */
 class FMS_Widget extends WP_Widget
 {
