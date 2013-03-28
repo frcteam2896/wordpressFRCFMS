@@ -10,23 +10,40 @@
         float:left;
         padding: 0 0 0 0;
         margin: 0 0 0 0;
+        width:50%;
         .red{
+            padding: 0 0 0 0;
+            margin: 0 0 0 0;
             li{
+                padding: 0 0 0 0;
+                margin: 0 0 0 0;
                 background-color:@red;
-                width:100%;
+                width: 100%;
                 &:nth-child(odd){
                     background-color:@red-alt;
+                }
+                .score{
+                    outline:3px solid black;
+                    background-color:darken(@red,5%);
                 }
             }
         }
         .blue{
-            width:100%;
+            padding: 0 0 0 0;
+            margin: 0 0 0 0;
             li{
+                padding: 0 0 0 0;
+                margin: 0 0 0 0;
                 background-color:@blue;
+                width: 100%;
                 &:nth-child(odd){
                     background-color:@blue-alt;
                 }
             }
+                .score{
+                    outline:3px solid black;
+
+                }
         }
     }
 }

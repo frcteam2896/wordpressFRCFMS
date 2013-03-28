@@ -1,3 +1,5 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
-.fms{width:100%;display:inline;}.fms li{float:left;padding:0 0 0 0;margin:0 0 0 0;}.fms li .red li{background-color:#fa1137;width:100%;}.fms li .red li:nth-child(odd){background-color:#fc758b;}
-.fms li .blue{width:100%;}.fms li .blue li{background-color:#6879ed;}.fms li .blue li:nth-child(odd){background-color:#c3caf8;}
+.fms{width:100%;display:inline;}.fms li{float:left;padding:0 0 0 0;margin:0 0 0 0;width:50%;}.fms li .red{padding:0 0 0 0;margin:0 0 0 0;}.fms li .red li{padding:0 0 0 0;margin:0 0 0 0;background-color:#fa1137;width:100%;}.fms li .red li:nth-child(odd){background-color:#fc758b;}
+.fms li .red li .score{outline:3px solid black;background-color:#ed052b;}
+.fms li .blue{padding:0 0 0 0;margin:0 0 0 0;}.fms li .blue li{padding:0 0 0 0;margin:0 0 0 0;background-color:#6879ed;width:100%;}.fms li .blue li:nth-child(odd){background-color:#c3caf8;}
+.fms li .blue li .score{outline:3px solid black;background-color:#5165ea;}
