@@ -1,0 +1,30 @@
+/** FRCFMS plugin style sheet **/
+@red: #fa1137;
+@blue: #6879ed;
+@red-alt: lighten(@red, 20%);
+@blue-alt: lighten(@blue, 20%);
+.fms{
+    width:100%;
+    display:inline;
+    .red{
+        width:50%;
+        float:left;
+        li{
+            background-color:@red;
+            &:nth-child(odd){
+                background-color:@red-alt;
+            }
+        }
+    }
+    .blue{
+        width:50%;
+        float:right;
+        li{
+            background-color:@blue;
+            &:nth-child(odd){
+                background-color:@blue-alt;
+            }
+        }
+    }
+}
+    }

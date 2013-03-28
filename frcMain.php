@@ -2,7 +2,7 @@
 /*
 Plugin Name: FRCFMS widget
 Plugin URI: https://github.com/MechaMonarchs/wordpressFRCFMS
-Version: 0.1.2
+Version: 0.1.3
 Author: Damien MechaMonarchs (FRC Team 2896)
 Description: Integrates data from FRCFMS, a score reporting site for FIRST Robotics.
 */
@@ -19,6 +19,8 @@ class FMS_Widget extends WP_Widget
             if (preg_match('/'.$team.'/',$frcfms))
                 $i = $n + 1;
         }
+        if (!preg_match('/'.$team.'/',$frcfms))
+            return(NULL);
         $frcfms = preg_split("(#FRC\w* |TY | MC | RF | BF | RA | BA | RC | BC | RFP | BFP | RAS | BAS | RTS | BTS )", $frcfms);
         $frcfms[6] = explode(" ",$frcfms[6]);
         $frcfms[7] = explode(" ",$frcfms[7]);
@@ -78,18 +80,36 @@ class FMS_Widget extends WP_Widget
     $match = $this->TBA_Parser($instance['team'], $instance['event']);
     if($match==NULL)
         echo("Could not find match data.  Has the event started yet?");
-    else{
-        echo($match["match"].$match["type"].'<br/>');
-        echo('<div class="fmsred"><br/>Red:<br/>'.$match["rAlliance"][0].'<br/>');
-        echo($match["rAlliance"][1].'<br/>');
-        echo($match["rAlliance"][2].'<br/>');
-        echo('<div class="sred">Score:'.$match["red"].'<br/></div><div>');
-        echo('<div class="fmsblue"><br/>Blue:</br>'.$match["bAlliance"][0].'<br/>');
-        echo($match["bAlliance"][1].'<br/>');
-        echo($match["bAlliance"][2].'<br/>');
-        echo('<div class="sblue">Score:'.$match["Blue"].'<br/></div></div>');
-        echo $after_widget;
+    else{ ?>
+        <ul class="fms">
+            <li>Match:<? echo($match["match"].$match["type"]);?>
+                <li>Red:
+                    <ul class="red">
+                        <li><? echo($match["rAlliance"][0]);?></li>
+                        <li><? echo($match["rAlliance"][1]);?></li>
+                        <li><? echo($match["rAlliance"][2]);?></li>
+                        <li class="score">Score:<? echo($match["red"]);?></li>
+                    </ul>
+                </li>
+                <li>Blue
+                    <ul class="blue">
+                        <li><? echo($match["bAlliance"][0]);?></li>
+                        <li><? echo($match["bAlliance"][1]);?></li>
+                        <li><? echo($match["bAlliance"][2]);?></li>
+                        <li class="score">Score:<? echo($match["blue"]);?><li>
+                    </ul>
+                </li>
+            </li>
+
+        <? echo $after_widget;
     }
   }
+
+    function FMS_style() {
+        // Respects SSL, Style.css is relative to the current file
+        wp_register_style( 'FMS-style', plugins_url('style.css', __FILE__) );
+        wp_enqueue_style( 'FMS-style' );
+    }
 }
+add_action( 'wp_enqueue_scripts', 'FMS_style' );
 add_action( 'widgets_init', create_function('', 'return register_widget("FMS_Widget");') );?>
