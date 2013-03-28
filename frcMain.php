@@ -10,9 +10,9 @@ class FMS_Widget extends WP_Widget
 {
   function TBA_Parser($team, $event){
         $data = file_get_contents('https://search.twitter.com/search.json?q=%23'.$event.'%20from:frcfms');
+        $data = json_decode($data);
         if (empty($data->results))
             return(NULL);
-        $data = json_decode($data);
         $n = count($data -> results);
         for($i = 0; $i < $n; $i++){
             $frcfms = $data -> results[$i] -> text;
