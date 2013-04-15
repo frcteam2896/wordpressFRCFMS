@@ -12,7 +12,7 @@ class FMS_Widget extends WP_Widget
       #Initializes function variables
         $m = 0;
       #Fetches data from Twitter API
-        $data = file_get_contents('https://search.twitter.com/search.json?q=%23'.$event.'%20from:frcfms');
+        $data = file_get_contents('https://search.twitter.com/search.json?q=%23frc'.$event.'%20from:frcfms');
         $data = json_decode($data);
       #Event error handling
         if (empty($data->results))
