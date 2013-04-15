@@ -9,8 +9,8 @@ Description: Integrates data from FRCFMS, a score reporting site for FIRST Robot
 class FMS_Widget extends WP_Widget
 {
   function TBA_Parser($team, $event){
-      #Initializes function variables
-        $m = 0;
+      #Initialize variables
+      $m = 0;
       #Fetches data from Twitter API
         $data = file_get_contents('https://search.twitter.com/search.json?q=%23frc'.$event.'%20from:frcfms');
         $data = json_decode($data);
@@ -21,11 +21,11 @@ class FMS_Widget extends WP_Widget
         $n = count($data -> results);
         for($i = 0; $i < $n; $i++){
             $frcfms = $data -> results[$i] -> text;
-            if (preg_match('/'.$team.'/',$frcfms))
-                $return[$m]=$frcfms;
+            if (preg_match('/'.$team.'/',$frcfms)){
+                $return[$m++]=$frcfms;
         }
       #Match error handling
-        if (!preg_match('/'.$team.'/',$frcfms))
+        if ($return = NULL)
             return(array(NULL,1));
       #Returns raw twitter data as an array item for each match
         return $return;
