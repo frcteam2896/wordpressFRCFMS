@@ -16,22 +16,28 @@ class FMS_Widget extends WP_Widget
         $data = json_decode($data);
       #Event error handling
         if (empty($data->results))
-            return(array(NULL,0));
+            return(array(
+                'err'=>1,
+                'type'=>1,
+            ));
       #Parses event data to find matches with selected teams in them
         $n = count($data -> results);
         for($i = 0; $i < $n; $i++){
             $frcfms = $data -> results[$i] -> text;
             if (preg_match('/'.$team.'/',$frcfms)){
                 $return[$m++]=$frcfms;
-        }
+        }}
       #Match error handling
-        if ($return = NULL)
-            return(array(NULL,1));
+        if ($return == NULL)
+            return(array(
+                'err'=>1,
+                'type'=>2,
+            ));
       #Returns raw twitter data as an array item for each match
         return $return;
   }
   #Splits specified match returned by TBA_Parse function into match data
-function FMS_Split($frcfms, $team, $match){
+function FMS_Split($frcfms, $team, $match=0){
   #Selects chosen match
     $frcfms = $frcfms[$match];
   #Splits match data by delimiters
@@ -51,6 +57,7 @@ function FMS_Split($frcfms, $team, $match){
         'blue' => $frcfms[5],
         'rAlliance' => $frcfms[6],
         'bAlliance' => $frcfms[7],
+        'err'=>0,
         );
 }
 #Widget metadata  
@@ -100,9 +107,9 @@ function FMS_Widget()
     
     #Pull and parse data from the FMS feed
     $frcfms = $this->TBA_Parser($team, $event);
-    $match = $this->FMS_Split($frcfms, $team, -1);
+    $match = $this->FMS_Split($frcfms, $team);
     #General error handling
-    if($match[0]!=NULL){ ?>
+    if($match['err']!=1){ ?>
         <h4>Match:<? echo($match["match"].$match["type"]);?></h4>
         <ul class="fms">
                 <li>Red:
@@ -127,9 +134,9 @@ function FMS_Widget()
     }
     #General error handling
     else{
-        if($match[1]==0)
+        if($match['type']==1)
             echo"No matches have started yet, please check back later";
-        elseif ($match[1]==1) 
+        elseif ($match['type']==2) 
            echo"This team has not played any matches yet, please check back later";
     }
   }
