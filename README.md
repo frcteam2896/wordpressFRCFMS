@@ -4,6 +4,7 @@ Version: 0.1.4<br/>
 Author: Damien MechaMonarchs (FRC Team 2896)<br/>
 Description: Integrates data from FRCFMS, a score reporting site for FIRST Robotics
 Changelog:
++v0.1.4
 +Code Documentation
 +TBA_Parse() now returns error codes in an array instead of just NULL
 +FMS_Split() to handle parsing of data passed on by TBA_Parse()
